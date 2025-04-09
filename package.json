@@ -9,7 +9,7 @@
     "predev": "npm run clean && npm run build",
     "dev": "npm-run-all --parallel dev:*",
     "dev:client": "chokidar 'client/**/*' -c 'npm run build:client'",
-    "dev:server": "nodemon server/server.js --ext js,liquid",
+    "dev:server": "nodemon server/server.js --ext js,liquid,css",
     "prebuild": "npm run clean",
     "build": "npm-run-all build:*",
     "build:client": "vite build"
