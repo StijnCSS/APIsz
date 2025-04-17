@@ -5,6 +5,11 @@
 <div class="jokes">
     <h1 class="h1">{{ joke }}</h1>
     <img src="/images/clippy.png" alt="Clippy mascot" style="height: 300px;">
+    <form method="POST" action="/like">
+  <input type="hidden" name="joke" value="{{ joke }}">
+  <button type="submit" class="button">👍 Like this joke</button>
+</form>
 </div>
+
 
 {% endblock %}

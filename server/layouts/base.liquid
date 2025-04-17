@@ -14,21 +14,25 @@
 
 <body>
   <header>
-    <p>logo van project</p>
+    <div class="logo">
+      <img src="/images/logo.png" alt="" height="48">
+      funnylol.com
+    </div>
     
-    <ul>
-      <li>X</li>
-      <li>O</li>
-      <li>-</li>
-    </ul>
+
+    <div>X</div>
+
   </header>
   <main>
     {% block content %}{% endblock %}
-    <a class="button" href="http://localhost:3000/">Yo MAMA</a>
+
+    <a class="button" href="/?type=mom">Yo MAMA</a>
+    <a class="button" href="/?type=dad">Nice one Dad</a>
+    
 
   </main>
   <footer>
-    <a href=""><img src="/images/windows.png" alt="windows logo" style="height: 24px;">Start</a> 
+    <a href=""><img src="/images/windows.png" alt="windows logo" height="24">Start</a> 
     <div id="time"></div>
   </footer>
 </body>

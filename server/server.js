@@ -7,18 +7,20 @@ const API_URL_DAD = 'https://icanhazdadjoke.com';
 const API_URL_MOM = 'https://www.yomama-jokes.com/api/v1/jokes/random/';
 
 // ✅ Function to fetch the joke
-async function getJoke() {
+async function getJoke(type = 'mom') {
+  const url = type === 'dad' ? API_URL_DAD : API_URL_MOM;
+  const headers = type === 'dad'
+    ? { Accept: 'application/json' }
+    : {};
+
   try {
-    const response = await fetch(API_URL_MOM, {
-      headers: {
-        Accept: 'application/json',
-      }
-    });
+    const response = await fetch(url, { headers });
     const data = await response.json();
-    console.log('[DAD JOKE]', data.joke); // Logs joke to console
-    return data.joke;
+    const jokeText = type === 'dad' ? data.joke : data.joke;
+    console.log(`[${type.toUpperCase()} JOKE]`, jokeText);
+    return jokeText;
   } catch (error) {
-    console.error('[ERROR FETCHING JOKE]', error);
+    console.error(`[ERROR FETCHING ${type.toUpperCase()} JOKE]`, error);
     return 'No joke today 😢';
   }
 }
@@ -36,17 +38,15 @@ app
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
 
 app.get('/', async (req, res) => {
-  const jokeValue = await getJoke(); // 👈 Fetch the joke
+  const type = req.query.type === 'dad' ? 'dad' : 'mom';
+  const jokeValue = await getJoke(type);
   return res.send(renderTemplate('server/views/index.liquid', {
     title: 'Home',
-    joke: jokeValue // 👈 pass the joke to the template
+    joke: jokeValue,
+    currentType: type
   }));
 });
-
-
 
 const renderTemplate = (template, data) => {
   return engine.renderFileSync(template, data);
 };
-
-
