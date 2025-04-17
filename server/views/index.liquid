@@ -3,13 +3,12 @@
 {% block content %}
 
 <div class="jokes">
-    <h1 class="h1">{{ joke }}</h1>
+    <h1 class="h1" id="joke" data-joke="{{ joke }}">{{ joke }}</h1>
     <img src="/images/clippy.png" alt="Clippy mascot" style="height: 300px;">
-    <form method="POST" action="/like">
-  <input type="hidden" name="joke" value="{{ joke }}">
-  <button type="submit" class="button">👍 Like this joke</button>
-</form>
 </div>
-
+<div style="margin-top: 1rem;">
+  <button class="button" data-rating="lame">👎 Lame</button>
+  <button class="button" data-rating="good">👍 Good</button>
+</div>
 
 {% endblock %}
