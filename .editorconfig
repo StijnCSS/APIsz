@@ -19,3 +19,4 @@ trim_trailing_whitespace = true
 # Don't trim whitespace because of double space <br/> thing in Markdown
 [*.md]
 trim_trailing_whitespace = false
+

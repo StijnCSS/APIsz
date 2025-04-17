@@ -32,6 +32,7 @@ const app = new App();
 app
   .use(logger())
   .use('/', sirv('dist'))
+  .use('/', sirv('client'))
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
 
 app.get('/', async (req, res) => {
@@ -42,10 +43,10 @@ app.get('/', async (req, res) => {
   }));
 });
 
-app.get('/plant/:id/', async (req, res) => {
-  return res.send('Plant detail not available.');
-});
+
 
 const renderTemplate = (template, data) => {
   return engine.renderFileSync(template, data);
 };
+
+
