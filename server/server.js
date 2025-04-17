@@ -47,6 +47,14 @@ app.get('/', async (req, res) => {
   }));
 });
 
+
+// de url arcive werkt nu en displayed de detail.liquid file
+app.get('/archive', (req, res) => {
+  return res.send(renderTemplate('server/views/detail.liquid', {
+    title: 'Archive'
+  }));
+});
+
 const renderTemplate = (template, data) => {
   return engine.renderFileSync(template, data);
 };

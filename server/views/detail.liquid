@@ -1,6 +1,8 @@
 {% layout "server/layouts/base.liquid" %}
 
 {% block content %}
-<h1 class="h1">{{ item.name }}</h1>
-<img src="{{ item.image.src }}" alt="{{ item.image.alt }}" width="{{ item.image.width }}" height="{{ item.image.height }}" />
+<h1 class="h1">Rated Jokes Archive</h1>
+<ul id="jokeList" class="joke-list"></ul>
+<script src="/index.js" defer></script>
+
 {% endblock %}
