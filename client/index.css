@@ -70,3 +70,9 @@ main {
   font-weight: 900;
   font-family: 'Courier New', Courier, monospace;
 }
+
+.buttons-home {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}

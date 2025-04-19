@@ -1,0 +1,11 @@
+{% layout "server/layouts/detail.liquid" %}
+
+{% block content %}
+<div class="joke-card">
+  <p>{{ joke.joke }}</p>
+  <p>{{ joke.rating == 'good' ? '👍' : '👎' }}</p>
+  {% comment %} remove button {% endcomment %}
+</div>
+
+</div>
+{% endblock %}
