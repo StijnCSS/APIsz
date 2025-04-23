@@ -1,11 +1,13 @@
-{% layout "server/layouts/detail.liquid" %}
 
-{% block content %}
-<div class="joke-card">
+<li class="joke-card">
   <p>{{ joke.joke }}</p>
-  <p>{{ joke.rating == 'good' ? '👍' : '👎' }}</p>
-  {% comment %} remove button {% endcomment %}
-</div>
-
-</div>
-{% endblock %}
+  <div class="choices">
+  {% if joke.rating == 'good' %}  <p>👍</p>
+  {% else %}  <p>👎</p>
+  {% endif %}
+  <form action="/delete" method="POST" style="display:inline;">
+    <input type="hidden" name="index" value="{{ forloop.index0 }}">
+    <button class="button" type="submit">🗑 </button>
+  </form>
+  </div>
+</li>

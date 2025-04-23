@@ -5,11 +5,28 @@ import { Liquid } from 'liquidjs';
 import { urlencoded } from 'milliparsec';
 import sirv from 'sirv';
 
+//nodig om files te laden uit json file
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const jokesFilePath = path.join(__dirname, 'data', 'jokes.json');
+
+
+// weet wat rated jokes zijn ind earray in data jokes.json
+let ratedJokes = [];
+
+try {
+  const jokesData = fs.readFileSync(jokesFilePath, 'utf-8');
+  ratedJokes = JSON.parse(jokesData);
+} catch (err) {
+  console.warn('No existing jokes file found, starting fresh.');
+}
 
 const API_URL_DAD = 'https://icanhazdadjoke.com';
 const API_URL_MOM = 'https://www.yomama-jokes.com/api/v1/jokes/random/';
-const ratedJokes = [];
 
 // ✅ Function to fetch the joke
 async function getJoke(type = 'mom') {
@@ -67,6 +84,7 @@ const renderTemplate = (template, data) => {
 };
 
 // serverside jokes database 
+
 app.post('/like', (req, res) => {
   const { joke, rating } = req.body;
   if (joke && rating) {
@@ -81,7 +99,22 @@ app.post('/delete', (req, res) => {
   const { index } = req.body;
   if (index !== undefined && ratedJokes[index]) {
     ratedJokes.splice(index, 1);
+    fs.writeFileSync(jokesFilePath, JSON.stringify(ratedJokes, null, 2));
     console.log(`Deleted joke at index ${index}`);
   }
   res.redirect('/archive');
 });
+
+
+// Delete joke
+app.post('/delete', (req, res) => {
+  const { index } = req.body;
+  if (index !== undefined && ratedJokes[index]) {
+    ratedJokes.splice(index, 1);
+    fs.writeFileSync(jokesFilePath, JSON.stringify(ratedJokes, null, 2)); // ✅ safe here too
+    console.log(`Deleted joke at index ${index}`);
+  }
+  res.redirect('/archive');
+});
+
+//load json file.

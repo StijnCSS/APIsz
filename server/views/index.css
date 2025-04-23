@@ -4,6 +4,42 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
+.joke-list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem auto;
+  max-width: 600px;
+}
 
+.joke-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  
+  background: #FCFAD0; 
+  border: .2rem solid black;
+  
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-size: 1.1rem;
+  
+}
 
+.joke-card p {
+  margin: 0;
+  flex: 1;
+}
 
+.joke-card form {
+  margin: 0;
+}
+
+.choices {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
