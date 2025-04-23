@@ -79,6 +79,13 @@ app.get('/archive', (req, res) => {
   }));
 });
 
+// New route to serve jokes via API without CORS issues
+app.get('/api/joke', async (req, res) => {
+  const type = req.query.type === 'dad' ? 'dad' : 'mom';
+  const jokeText = await getJoke(type);
+  res.json({ joke: jokeText });
+});
+
 const renderTemplate = (template, data) => {
   return engine.renderFileSync(template, data);
 };

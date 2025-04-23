@@ -8,11 +8,11 @@ document.getElementById('time').textContent = time;
 
 
 
-const jokeText = document.getElementById('joke')?.dataset.joke;
-
 document.querySelectorAll('[data-rating]').forEach(button => {
   button.addEventListener('click', async () => {
     const rating = button.dataset.rating;
+    const jokeElement = document.getElementById('joke');
+    const jokeText = jokeElement?.dataset.joke; // ✅ now always current
 
     await fetch('/like', {
       method: 'POST',
@@ -24,8 +24,13 @@ document.querySelectorAll('[data-rating]').forEach(button => {
         rating: rating
       })
     });
-    window.location.href = '/';
-    // window.location.href = '/archive'; ----- Elke keer als ik rate ga ik naar de archive page daarom archive weghalen
+
+    const type = Math.random() < 0.5 ? 'mom' : 'dad';
+const res = await fetch(`/api/joke?type=${type}`);
+
+    const data = await res.json();
+    jokeElement.textContent = data.joke;
+    jokeElement.dataset.joke = data.joke;
   });
 });
 
