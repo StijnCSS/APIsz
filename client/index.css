@@ -7,9 +7,9 @@
 @import '../server/views/index.css';
 
 body {
-display: flex;
-flex-direction: column;
-background: red;
+  display: flex;
+  flex-direction: column;
+  background-color: #3974EE;
   color: black;
   /* max-width: 1440px; */
   margin: 0 auto;
@@ -28,15 +28,22 @@ main {
   background-size: cover;
   text-align: center;
 }
-.button{
+
+.button {
   position: relative;
   border: 1px solid #0360df;
-  border-radius: 50px;
-  padding: 8px 16px;
+  border-radius: 3rem;
+  padding: .5rem 1rem;
   min-width: 8em;
   background-color: #0360df;
-  background-image: radial-gradient(75% 50% at 50% 0%, #f4feff, transparent), radial-gradient(75% 35% at 50% 85%, #8de3fc, transparent);
-  box-shadow: inset 0 -2px 4px 1px rgba(17, 110, 231, 0.6), inset 0 -4px 4px 1px #8de3fc, inset 0 0 2px 1px rgba(255, 255, 255, 0.2), 0 1px 4px 1px rgba(17, 110, 231, 0.2), 0 1px 4px 1px rgba(0, 0, 0, 0.1);
+  background-image: radial-gradient(75% 50% at 50% 0%, #f4feff, transparent),
+                    radial-gradient(75% 35% at 50% 85%, #8de3fc, transparent);
+                    
+  box-shadow: inset 0 -2px 4px 1px rgba(17, 110, 231, 0.6),
+              inset 0 -4px 4px 1px #8de3fc,
+              inset 0 0 2px 1px rgba(255, 255, 255, 0.2),
+                    0 1px 4px 1px rgba(17, 110, 231, 0.2),
+                    0 1px 4px 1px rgba(0, 0, 0, 0.1);
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 1px #116ee7;
@@ -55,14 +62,33 @@ main {
   }
 }
 
+header .button {
+  background-color: #2eaf57;
+  background-image: radial-gradient(75% 50% at 50% 0%, #e7fff0, transparent),
+                    radial-gradient(75% 35% at 50% 85%, #a6f3c2, transparent);
+  box-shadow: inset 0 -2px 4px 1px rgba(46, 175, 87, 0.6),
+              inset 0 -4px 4px 1px #a6f3c2,
+              inset 0 0 2px 1px rgba(255, 255, 255, 0.2),
+                    0 1px 4px 1px rgba(46, 175, 87, 0.2),
+                    0 1px 4px 1px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 1px #1c823e;
+  border: 1px solid #2eaf57;
+  color: black;
+}
+
 .jokes {
   display: flex;
+  flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
   
   & img {
-    margin-left: -5rem;
+    margin-left: -3rem;
   }
+}
+
+#clippy {
+  width:150px;
 }
 
 #time {
@@ -75,4 +101,20 @@ main {
   display: flex;
   gap: 1rem;
   flex-direction: column;
+}
+
+
+#clippy.talking {
+  animation: clippyWiggly 0.3s infinite alternate;
+}
+
+@keyframes clippyWiggly {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(1rem, -1rem); }
+}
+
+@media (min-width: 520px) {
+  .jokes {
+    flex-direction: row;
+  }
 }

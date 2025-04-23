@@ -10,6 +10,7 @@
   <script src="/index.js" defer></script>
   {% block styles %}{% endblock %}
   {% block scripts %}{% endblock %}
+  {% comment %} <link rel="preload" href="/images/WindowsXP.jpg" as="image"> gaf rare warning in terminal die ik niet wil checken{% endcomment %}
 </head>
 
 <body>
@@ -18,7 +19,7 @@
       <a href="http://localhost:3000/"><img src="/images/logo.png" alt="" height="48"></a>
       funnylol.com
     </div>
-    
+    <a href="/archive"><button class="button">Archive</button></a>
 
     {% comment %} <div>X</div> {% endcomment %}
 

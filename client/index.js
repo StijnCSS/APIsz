@@ -25,38 +25,63 @@ document.querySelectorAll('[data-rating]').forEach(button => {
       })
     });
 
+// 50% kans of er een dad of mom joke komt. Als de joke een dad joke is wordt het clippy_man en als dat niet is dan wordt de vrouwelijke clippy laten zien
     const type = Math.random() < 0.5 ? 'mom' : 'dad';
-const res = await fetch(`/api/joke?type=${type}`);
+    const clippyImg = document.getElementById('clippy');
+    const imagePath = type === 'dad' ? 'clippy_man.png' : 'clippy_vrouw.png';
+    clippyImg.src = `/images/${imagePath}`;
+
+    const res = await fetch(`/api/joke?type=${type}`);
 
     const data = await res.json();
     jokeElement.textContent = data.joke;
     jokeElement.dataset.joke = data.joke;
+
+
+    
+    //web api 01 https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
+    const spraak = new SpeechSynthesisUtterance(data.joke);
+    
+
+    clippyImg.classList.add('talking');
+    spraak.onend = () => {
+      
+      clippyImg.classList.remove('talking');
+    };
+    speechSynthesis.speak(spraak);
   });
 });
 
+// https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API
+document.getElementById('copyJoke')?.addEventListener('click', () => {
+  const jokeText = document.getElementById('joke')?.textContent;
+  if (!jokeText) return;
 
-
-
-// Geen fetch request bij deze dus front end kan niet communiceren met back-end
-// const jokeText = document.getElementById('joke')?.dataset.joke;
-//   document.querySelectorAll('[data-rating]').forEach(button => {
-//     button.addEventListener('click', () => {
-//       const rating = button.dataset.rating;
-//       const stored = JSON.parse(localStorage.getItem('jokes') || '[]');
-//       stored.push({ joke: jokeText, rating });
-//       localStorage.setItem('jokes', JSON.stringify(stored));
-//       window.location.href = '/';
-//     });
-//   });
-
-
-
-
-
-//   document.querySelectorAll('[data-rating]').forEach(button => {
-//     button.addEventListener('click', () => {
-//       const rating = button.dataset.rating;
-//       const stored = JSON.parse(localStorage.getItem('jokes') || '[]');
-//       stored.push({ joke: jokeText, rating });
-//       localStorage.setItem('jokes', JSON.stringify(stored));
-//       window.location.href = '/';
+  navigator.clipboard.writeText(jokeText)
+    .then(() => {
+      console.log('Joke copied to clipboard!');
+      // Play sound effect after copying and before notification
+      const copySounds = [
+        '/sounds/haha01.mp3',
+        '/sounds/haha02.mp3',
+        '/sounds/haha01.wav'
+      ];
+      const randomSound = copySounds[Math.floor(Math.random() * copySounds.length)];
+      const copySound = new Audio(randomSound);
+      copySound.play();
+      if (typeof Notification !== 'undefined') {
+        if (Notification.permission === 'granted') {
+          new Notification('You better not send this to yo momma bro!🤓');
+        } else if (Notification.permission !== 'denied') {
+          Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+              new Notification('You better not send this to yo momma bro!🤓');
+            }
+          });
+        }
+      }
+    })
+    .catch(err => {
+      console.error('Failed to copy joke:', err);
+    });
+});

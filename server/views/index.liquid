@@ -2,17 +2,18 @@
 
 {% block content %}
 <div style="margin-bottom: 1rem;">
-<a href="/archive"><button class="button">📚 View Archive</button></a>
+
 </div>
 <div class="jokes">
     <h1 id="joke" data-joke="{{ joke }}">{{ joke }}</h1>
-    <img src="/images/clippy.png" alt="Clippy mascot" style="height: 300px;">
+    <img id="clippy" src="/images/clippy.png" alt="Clippy mascot">
 </div>
 <div class="buttons-home">
   <div>
     <button class="button" data-rating="lame">👎 </button>
     <button class="button" data-rating="good">👍 </button>
   </div>
+  <button id="copyJoke" class="button">Copy Joke</button>
 </div>
 
 {% endblock %}
