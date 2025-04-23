@@ -2,7 +2,22 @@
 
 {% block content %}
 <h1 class="h1">Rated Jokes Archive</h1>
-<ul id="jokeList" class="joke-list"></ul>
-<script src="/index.js" defer></script>
+<ul class="joke-list">
+  {% for joke in ratedJokes %}
+    <li class="joke-card">
+      <p>{{ joke.joke }}</p>
+            {% if joke.rating == 'good' %}
+        <p>👍</p>
+      {% else %}
+        <p>👎</p>
+      {% endif %}
+      
+      <form action="/delete" method="POST" style="display:inline;">
+      <input type="hidden" name="index" value="{{ forloop.index0 }}">
+      <button class="button" type="submit">🗑 </button>
+    </form>
+    </li>
+  {% endfor %}
+</ul>
 
 {% endblock %}

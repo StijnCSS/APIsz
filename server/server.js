@@ -1,10 +1,15 @@
 import { App } from '@tinyhttp/app';
 import { logger } from '@tinyhttp/logger';
 import { Liquid } from 'liquidjs';
+//body parser nodig. ff googlen wat dat betekent en check NPM
+import { urlencoded } from 'milliparsec';
 import sirv from 'sirv';
+
+
 
 const API_URL_DAD = 'https://icanhazdadjoke.com';
 const API_URL_MOM = 'https://www.yomama-jokes.com/api/v1/jokes/random/';
+const ratedJokes = [];
 
 // ✅ Function to fetch the joke
 async function getJoke(type = 'mom') {
@@ -33,6 +38,7 @@ const app = new App();
 
 app
   .use(logger())
+  .use(urlencoded()) // ✅ THIS should be placed BEFORE .post or .get routes
   .use('/', sirv('dist'))
   .use('/', sirv('client'))
   .listen(3000, () => console.log('Server available on http://localhost:3000'));
@@ -51,10 +57,31 @@ app.get('/', async (req, res) => {
 // de url arcive werkt nu en displayed de detail.liquid file
 app.get('/archive', (req, res) => {
   return res.send(renderTemplate('server/views/detail.liquid', {
-    title: 'Archive'
+    title: 'Archive',
+    ratedJokes 
   }));
 });
 
 const renderTemplate = (template, data) => {
   return engine.renderFileSync(template, data);
 };
+
+// serverside jokes database 
+app.post('/like', (req, res) => {
+  const { joke, rating } = req.body;
+  if (joke && rating) {
+    ratedJokes.push({ joke, rating });
+    console.log('Rated joke added:', { joke, rating });
+  }
+  res.redirect('/');
+});
+
+// Jokes verwijderen uit het archief
+app.post('/delete', (req, res) => {
+  const { index } = req.body;
+  if (index !== undefined && ratedJokes[index]) {
+    ratedJokes.splice(index, 1);
+    console.log(`Deleted joke at index ${index}`);
+  }
+  res.redirect('/archive');
+});
