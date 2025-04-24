@@ -88,13 +88,42 @@ app.get('/archive', (req, res) => {
 </li>
 ```
 
-Met deze structuur kan ik de grappen netjes weergeven én makkelijk uitbreiden of stylen zonder steeds alles te kopiëren.
+Met deze structuur kan ik de grappen netjes weergeven én makkelijk uitbreiden of stylen zonder steeds alles te kopiëren.  
 
+## Web APIs + Content APIs
+### SpeechSynthesis
+Ik vond het belangrijk om een web API uit te kiezen die mijn grappige site nog grappiger kon maken. Ik heb daarom gekozen voor de SpeechSynthesis API die zorgt ervoor dat alle jokes uitgesproken worden. Ik heb hier nog een Wiggle animatie aan gekoppeld om het te laten lijken alsof Clippy aan het praten is.
+
+```` js
+    const spraak = new SpeechSynthesisUtterance(data.joke); speechSynthesis.speak(spraak);
+````  
+```` js
+clippyImg.classList.add('talking');
+    spraak.onend = () => {
+  clippyImg.classList.remove('talking');
+};
+````  
+### Notifications
+Een 2e API vinden die echt leuk was moeilijk. Ik heb gekozen voor Notifications gekozen. Als je echt een leuke joke ziet dan kan je het met notifications. Om het een beetje interessant te maken en onderdeel van de site heb ik de notification `geEDGYfied` en sound effects toegevoegd
+
+````js 
+if (Notification.permission === 'granted') {
+  new Notification('You better not send this to yo momma bro!🤓');
+} else if (Notification.permission !== 'denied') {
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      new Notification('You better not send this to yo momma bro!🤓');
+    }
+  });
+} ````
 
 # Conclusie!
 Ik heb een interactieve site gemaakt en ik heb veel geleerd over APIs. Ik heb API data gefetched op de client en server side. Web en Content APIs aaan elkaar gekoppeld en daar interactie aan toegevoegd.  Het leukste vond ik toch de styling en hoe Clippy interactie heeft met de API. 
 
 Ondanks dat ik 'teveel' nieuwe impressies heb gehad, waardoor ik veel moeite heb gehad. vind ik het stiekem toch wel leuk, ik heb alleen meer tijd nodig om er meer grip op te krijgen zodat ik veel beter dingen begrijp zoals syntax en waaar in de order het moet.  
-APIs maken sites wel leuk informatief en interactief, een statische site is vaak een beetje saai tenzij het echt informatief moet zijn.
+APIs maken sites wel leuk informatief en interactief, een statische site is vaak een beetje saai tenzij het echt informatief moet zijn.  
 
 Ik heb wel het meeste plezier gehad met het bedenken hoe Clippy interactie heeft met de API en hoe hij/zij eruit moet zien.
+
+## Als ik nog meer tijd had zou ik...
+likes willen toevoegen aan mijn JSON template zodat ik joke met de meeste likes op de home pagina met een kroontje zou kunnen displayen en wat styling dingentjes tweaken om het gelikt te maken.

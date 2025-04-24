@@ -66,8 +66,7 @@ document.getElementById('copyJoke')?.addEventListener('click', () => {
 
   navigator.clipboard.writeText(jokeText)
     .then(() => {
-      console.log('Joke copied to clipboard!');
-      // Play sound effect after copying and before notification
+      console.log('Joke copied to clipboard!'); // DEBUGGG
       const copySounds = [
         '/sounds/haha01.mp3',
         '/sounds/haha02.mp3',
