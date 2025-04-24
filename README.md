@@ -115,7 +115,7 @@ if (Notification.permission === 'granted') {
       new Notification('You better not send this to yo momma bro!🤓');
     }
   });
-} ````
+````
 
 # Conclusie!
 Ik heb een interactieve site gemaakt en ik heb veel geleerd over APIs. Ik heb API data gefetched op de client en server side. Web en Content APIs aaan elkaar gekoppeld en daar interactie aan toegevoegd.  Het leukste vond ik toch de styling en hoe Clippy interactie heeft met de API. 
@@ -127,3 +127,4 @@ Ik heb wel het meeste plezier gehad met het bedenken hoe Clippy interactie heeft
 
 ## Als ik nog meer tijd had zou ik...
 likes willen toevoegen aan mijn JSON template zodat ik joke met de meeste likes op de home pagina met een kroontje zou kunnen displayen en wat styling dingentjes tweaken om het gelikt te maken.
+
