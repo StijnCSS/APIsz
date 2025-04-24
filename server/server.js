@@ -112,7 +112,6 @@ app.post('/like', (req, res) => {
 });
 
 // Jokes verwijderen uit het archief
-// Verwijder een grap uit het archief
 app.post('/delete', (req, res) => {
   const { index } = req.body;
   if (index !== undefined && ratedJokes[index]) {
@@ -129,7 +128,7 @@ app.post('/delete', (req, res) => {
   const { index } = req.body;
   if (index !== undefined && ratedJokes[index]) {
     ratedJokes.splice(index, 1);
-    fs.writeFileSync(jokesFilePath, JSON.stringify(ratedJokes, null, 2)); // ✅ safe here too
+    fs.writeFileSync(jokesFilePath, JSON.stringify(ratedJokes, null, 2));
     console.log(`Deleted joke at index ${index}`);
   }
   res.redirect('/archive');
