@@ -2,6 +2,8 @@ import './index.css';
 
 console.log('Hello, world!');
 
+
+// Laat zien hoelaat het is rechtsonderin de footer
 const now = new Date();
 const time = now.toLocaleTimeString();
 document.getElementById('time').textContent = time;
@@ -28,7 +30,12 @@ document.querySelectorAll('[data-rating]').forEach(button => {
 // 50% kans of er een dad of mom joke komt. Als de joke een dad joke is wordt het clippy_man en als dat niet is dan wordt de vrouwelijke clippy laten zien
     const type = Math.random() < 0.5 ? 'mom' : 'dad';
     const clippyImg = document.getElementById('clippy');
-    const imagePath = type === 'dad' ? 'clippy_man.png' : 'clippy_vrouw.png';
+    let imagePath;
+      if (type === 'dad') {
+        imagePath = 'clippy_man.png';
+      } else {
+        imagePath = 'clippy_vrouw.png';
+}
     clippyImg.src = `/images/${imagePath}`;
 
     const res = await fetch(`/api/joke?type=${type}`);

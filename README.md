@@ -38,5 +38,50 @@ De client haalt de grap nu op met:
 const res = await fetch(`/api/joke?type=${type}`);
 const data = await res.json();
 ```
+😊😊😊😊😊😊😊
 
-Hierdoor werkt alles zonder CORS-problemen.
+Web api's
+
+### Archiefpagina & Templatesysteem
+
+Voor het overzicht van beoordeelde grappen heb ik een aparte pagina gemaakt: `/archive`.
+
+Deze maakt gebruik van een **Liquid template systeem** waarbij ik componenten herbruikbaar kan maken.  
+Op de `/archive`-pagina laad ik het template `detail.liquid`, en daarin gebruik ik een losse component `list-item.liquid` voor elke grap.
+
+#### Hoe het werkt:
+
+- In `server.js` maak ik een route aan:
+```js
+app.get('/archive', (req, res) => {
+  return res.send(renderTemplate('server/views/detail.liquid', {
+    title: 'Archive',
+    ratedJokes 
+  }));
+});
+```
+
+- In `detail.liquid` gebruik ik een `for-loop` om door alle beoordeelde grappen te loopen en een component in te laden:
+
+```liquid
+<ul class="joke-list">
+  {% for joke in ratedJokes %}
+    {% include "server/components/list-item/list-item.liquid", joke: joke %}
+  {% endfor %}
+</ul>
+```
+
+- In de `list-item.liquid` component toon ik de grap, de rating (👍 of 👎) en een verwijderknop:
+
+```liquid
+<li class="joke-card">
+  <p>{{ joke.joke }}</p>
+  <p>{{ joke.rating == 'good' ? '👍' : '👎' }}</p>
+  <form method="POST" action="/delete">
+    <input type="hidden" name="index" value="{{ forloop.index0 }}">
+    <button type="submit">Verwijder</button>
+  </form>
+</li>
+```
+
+Met deze structuur kan ik de grappen netjes weergeven én makkelijk uitbreiden of stylen zonder steeds alles te kopiëren.
