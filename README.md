@@ -10,7 +10,7 @@
 
 ## Process
 Ik was begonnen met Client side jokes laden met een button die steeds de pagina reload. Dit werd opgeslagen in local storage. Dit was nice voor een 'proof of concept' maar elke keer als ik de browser een refresh gaf was mijn archive leeg. Ik had een een probleem Cross-Origin Resource Sharing (CORS), dit kwam omdat ik de Yo Mama API rechtstreeks naar de client stuurde. ChatGPT schreef dat ik eerst via de server en dan naar de client moest sturen.  
-De nieuwe manier werkt nu wel omdat de server geen browser is en het niet blokkeerd.
+De nieuwe manier werkt nu wel omdat de server geen browser is en het niet blokkeerd. Door het op de server op te slaan is het ook meer future proof, ik kan functies toevoegen zoals meest gelikede joke, door een like counter toe te voegen in de `jokes.json`.
 
 OUD
 
@@ -22,7 +22,7 @@ fetch('https://www.yomama-jokes.com/api/v1/jokes/random/')
   });
 ```
 
-NEW
+NIEUW
 
 ```js
 app.get('/api/joke', async (req, res) => {
@@ -38,16 +38,20 @@ De client haalt de grap nu op met:
 const res = await fetch(`/api/joke?type=${type}`);
 const data = await res.json();
 ```
-😊😊😊😊😊😊😊
+😊😊😊😊😊😊😊 
 
-Web api's
+## Web api's
+
+### Hoe slaat de server de jokes op?
+Ik sla alle jokes op in de server door een JSON file te maken met een array. Alle jokes worden daar gearchiveerd tenzij het in de detail pagina verwijderd wordt. 
+```fs.writeFileSync(jokesFilePath, JSON.stringify(ratedJokes, null, 2));```
 
 ### Archiefpagina & Templatesysteem
 
 Voor het overzicht van beoordeelde grappen heb ik een aparte pagina gemaakt: `/archive`.
 
 Deze maakt gebruik van een **Liquid template systeem** waarbij ik componenten herbruikbaar kan maken.  
-Op de `/archive`-pagina laad ik het template `detail.liquid`, en daarin gebruik ik een losse component `list-item.liquid` voor elke grap.
+Op de `/archive` pagina laad ik het template `detail.liquid`, en daarin gebruik ik een losse component in de `ul` `list-item.liquid` voor elke grap.
 
 #### Hoe het werkt:
 
@@ -85,3 +89,12 @@ app.get('/archive', (req, res) => {
 ```
 
 Met deze structuur kan ik de grappen netjes weergeven én makkelijk uitbreiden of stylen zonder steeds alles te kopiëren.
+
+
+# Conclusie!
+Ik heb een interactieve site gemaakt en ik heb veel geleerd over APIs. Ik heb API data gefetched op de client en server side. Web en Content APIs aaan elkaar gekoppeld en daar interactie aan toegevoegd.  Het leukste vond ik toch de styling en hoe Clippy interactie heeft met de API. 
+
+Ondanks dat ik 'teveel' nieuwe impressies heb gehad, waardoor ik veel moeite heb gehad. vind ik het stiekem toch wel leuk, ik heb alleen meer tijd nodig om er meer grip op te krijgen zodat ik veel beter dingen begrijp zoals syntax en waaar in de order het moet.  
+APIs maken sites wel leuk informatief en interactief, een statische site is vaak een beetje saai tenzij het echt informatief moet zijn.
+
+Ik heb wel het meeste plezier gehad met het bedenken hoe Clippy interactie heeft met de API en hoe hij/zij eruit moet zien.

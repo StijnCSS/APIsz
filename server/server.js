@@ -32,23 +32,25 @@ const API_URL_MOM = 'https://www.yomama-jokes.com/api/v1/jokes/random/';
 
 // Functie om een grap op te halen van de juiste API
 async function getJoke(type = 'mom') {
-  const url = type === 'dad' ? API_URL_DAD : API_URL_MOM;
-  const headers = type === 'dad'
-    ? { Accept: 'application/json' }
-    : {};
+  let url;
+  let headers = {};
+
+  if (type === 'dad') {
+    url = API_URL_DAD;
+    headers = { Accept: 'application/json' };
+  } else {
+    url = API_URL_MOM;
+  }
 
   try {
     const response = await fetch(url, { headers });
     const data = await response.json();
-    const jokeText = type === 'dad' ? data.joke : data.joke;
-    console.log(`[${type.toUpperCase()} JOKE]`, jokeText);
-    return jokeText;
+    return data.joke;
   } catch (error) {
     console.error(`[ERROR FETCHING ${type.toUpperCase()} JOKE]`, error);
     return 'No joke today 😢';
   }
 }
-
 // Setup van de Liquid template engine
 const engine = new Liquid({
   extname: '.liquid',

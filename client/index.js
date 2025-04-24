@@ -14,7 +14,7 @@ document.querySelectorAll('[data-rating]').forEach(button => {
   button.addEventListener('click', async () => {
     const rating = button.dataset.rating;
     const jokeElement = document.getElementById('joke');
-    const jokeText = jokeElement?.dataset.joke; // ✅ now always current
+    const jokeText = jokeElement?.dataset.joke; 
 
     await fetch('/like', {
       method: 'POST',

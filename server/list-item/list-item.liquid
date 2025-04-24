@@ -5,7 +5,9 @@
   {% if joke.rating == 'good' %}  <p>👍</p>
   {% else %}  <p>👎</p>
   {% endif %}
-  <form action="/delete" method="POST" style="display:inline;">
+  
+{% comment %} Delete function dat bijhoudt welke indexed item je delete {% endcomment %}
+  <form action="/delete" method="POST">
     <input type="hidden" name="index" value="{{ forloop.index0 }}">
     <button class="button" type="submit">❌ </button>
   </form>
